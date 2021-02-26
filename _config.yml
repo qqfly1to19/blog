@@ -11,7 +11,7 @@ name: 乌卡的博客
 description: 学思行辩得认知，吃喝玩乐才潇洒。
 
 # 输入你的网站域名（如果你没有添加自己的域名，而是直接用GitHub pages分配的域名的话可以省略）
-url: 
+url: https://qqfly1to19.github.io/blog/ 
 
 # 添加你的博客的二级域名，一般来说是你的repository名
 # 如果你的博客的URL是：(http://yourusername.github.io/repository-name)
