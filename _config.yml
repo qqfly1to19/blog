@@ -11,7 +11,7 @@ name: 乌卡的博客
 description: 学思行辩得认知，吃喝玩乐才潇洒。
 
 # 输入你的网站域名（如果你没有添加自己的域名，而是直接用GitHub pages分配的域名的话可以省略）
-url: https://qqfly1to19.github.io/blog/ 
+url: https://qqfly1to19.github.io/ 
 
 # 添加你的博客的二级域名，一般来说是你的repository名
 # 如果你的博客的URL是：(http://yourusername.github.io/repository-name)
@@ -24,10 +24,10 @@ baseurl: /blog
 #
 
 # 你的博客logo图片URL，建议尺寸不超过300px × 300px
-avatar: https://qqfly1to19.github.io/blog/images/logologo.png
+avatar: /blog/images/logologo.png
 
 # 你的favicon（出现在浏览器tab上）图片URL，建议使用较小(64px × 64px)的图片
-favicon: https://qqfly1to19.github.io/blog/images/minilogo.png
+favicon: /images/minilogo.png
 
 
 # 菜单中的按钮
