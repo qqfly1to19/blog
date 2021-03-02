@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 程序员的自我修养·学习篇
+title: 程序员的自我修养·如何学习
 date: 2021-02-27
 author: 乌卡
 tags: [学习, 治学]
