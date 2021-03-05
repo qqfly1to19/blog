@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 提高长文本对话能力
+title: 【论文阅读】improving longer-range dialogue state tracking
 date: 2021-03-02
 Author: 乌卡 
 tags: [长文本, DST, 对话系统, 论文阅读]
