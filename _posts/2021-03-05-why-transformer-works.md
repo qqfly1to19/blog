@@ -1,11 +1,4 @@
----
-layout: post
-title: 【深度挖掘】为什么transformer这么牛逼
-date: 2021-03-05
-Author: 乌卡 
-tags: [综述, 论文解读, 阅读]
-comments: true
----
+
 
 transformer可以认为是一种设计较为复杂的一种模型。其核心是self-attention，但是仍然有很多别的设计。例如input/output输出，layer， encoder/decoder， layer normalization，相对位置编码，残差网络等等。每个既是经验的总结也包含着设计者的智慧。本文就是从这些问题出发，试图找到一些规律。
 
@@ -139,4 +132,19 @@ transformer可以认为是一种设计较为复杂的一种模型。其核心是
   - 而从论文中我们知道相对位置编码和网络中学习位置这两种方式的效果没有明显的差别。
   - 理解上看，网络中学习位置更加的简单直接，易于理解。从参数维度上，使用相对位置编码不会引入额外参数，而学习位置这种方式会增加的参数量会随线性增长而Complex Embedding在不做优化的情况下，会增加三倍word embedding的参数量。
   - 从可扩展性上看，学习中得到的位置可扩展性较差，只能表征在以内的位置，而另外两种方法没有这样的限制，可扩展性更强。(不太好理解)
-    
+
+## Bert和Transformer的贡献是什么
+
+### Bert贡献
+
+
+
+- 显示了双向预训练模型的重要性。Bert使用MLM是的模型得到了深度的双向表征能力
+- 显示了预训练表征可以减少特殊任务的工程量。(pre-train model + specific-domain fine-tune)
+- 打破了11项NLP任务记录
+
+### Transformer贡献
+
+- 没有采用RNN/LSTM这种大热的循环网络建模，使用了全新的multi-head self-attention,具有良好的效果
+- 可以并行计算
+- 长距离依赖问题
