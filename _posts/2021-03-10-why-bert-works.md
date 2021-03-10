@@ -27,11 +27,11 @@ Bert出处：Pre-training of Deep Bidirectional Transformers for Language Unders
 
 ### Bert在输入端相比于原来的transformer有啥变化吗？
 
-多了一个Segment Embedding。Segment Embedding是句子向量的意思。为什么会多一个Segment Embedding呢？因为Bert的预训练和Pretrain任务中，是有一些句子对任务，句子分类任务的。这个句子对任务是有上一句和下一句之分的，他考虑了句子之间的书讯冠旭，通过[SEP]标识进行标记。所以就会有句子A和句子B这样的字眼。
+多了一个Segment Embedding。Segment Embedding是句子向量的意思。为什么会多一个Segment Embedding呢？因为Bert的预训练和Pretrain任务中，是有一些句子对任务，句子分类任务的。这个句子对任务是有上一句和下一句之分的，他考虑了句子之间的顺序关系，通过[SEP]标识进行标记。所以就会有句子A和句子B这样的字眼。
 
 ### 为什么这些Embedding可以相加输入呢
 
-实际上，我们在很多场景下，信息都是叠加态的。在语音处理的领域更为常见，这说明了Embedding叠加输入仍可以表示一个正常的信号。同时，在其他的一些场景，例如静态词向量，一个词的向量其实可以认为是多个上下文的一个叠加态平均值。
+实际上，我们在很多场景下，信息都是叠加态的。在信号领域更为常见，这说明了Embedding叠加输入仍可以表示一个正常的信号。同时，在其他的一些场景，例如静态词向量，一个词的向量其实可以认为是多个上下文的一个叠加态平均值。
 
 你也可以使用其他的方式，例如concatenate，但是这样会造成维度加大，计算更复杂。
 
@@ -41,7 +41,7 @@ Bert出处：Pre-training of Deep Bidirectional Transformers for Language Unders
 
 ## Bert中使用transformer相比于之前的ELMOS好在哪
 
-Bert使用Transformer，而不是用LSTM(elmos)，RNN作为特征抽取器。关于Recurrent抽取器和Transformer的比较在此不做对比。我们知道的是，Recurrent抽取器的问题就是长时依赖不好做，训练师状态也是依赖的，所以速度比较慢。总体而言导致了抽取效果不是很好。同时，Recurrent抽取器不便于并行，也让他很难去叠加到深层。这个使用multi-head self-attention可以解决这些问题。
+Bert使用Transformer，而不是用LSTM(elmos)，RNN作为特征抽取器。关于Recurrent抽取器和Transformer的比较在此不做对比。我们知道的是，Recurrent抽取器的问题就是长时依赖不好做；训练时状态是依赖的，所以速度比较慢。总体而言导致了抽取效果不是很好。同时，Recurrent抽取器不便于并行，也让他很难去叠加到深层。这个使用multi-head self-attention可以解决这些问题。
 
 ## Bert 为什么使用Word piece，有什么好处
 
@@ -97,7 +97,7 @@ wordpiece实际上就是把一个单词给切分开，这个在中文中是不�
     - fastbert
     - distillbert
     - tinybert等
-- 设计变化：
+- 语言模型变化：
   - 自编码 -> 自回归等
 
 ## ALBERT的参数共享到底是什么原理
