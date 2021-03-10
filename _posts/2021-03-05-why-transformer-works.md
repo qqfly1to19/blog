@@ -1,4 +1,12 @@
+---
+layout: post
+title: 为什么transformer这么牛逼？
+date: 2021-03-05
+Author: 乌卡 
+tags: [机器学习, 评价方法, 面试]
+comments: true
 
+---
 
 transformer可以认为是一种设计较为复杂的一种模型。其核心是self-attention，但是仍然有很多别的设计。例如input/output输出，layer， encoder/decoder， layer normalization，相对位置编码，残差网络等等。每个既是经验的总结也包含着设计者的智慧。本文就是从这些问题出发，试图找到一些规律。
 
@@ -108,7 +116,7 @@ transformer可以认为是一种设计较为复杂的一种模型。其核心是
 
 ## self-attention公式中的归一化有什么作用
 
-首先要明确softmax的特性，他的特性就是随意做乘法和除法，都不会影响最终的值。而缩放是有明显好处的，可以防止函数推入到非常小的区域导致手链困难。
+首先要明确softmax的特性，他的特性就是随意做乘法和除法，都不会影响最终的值。而缩放是有明显好处的，可以防止函数推入到非常小的区域导致收敛困难。
 
 ## BERT中为什么用相对位置编码而其他位置编码方式
 
@@ -116,10 +124,9 @@ transformer可以认为是一种设计较为复杂的一种模型。其核心是
 
 ### 目前由几种编码方式：
 
-- 绝对位置编码。首先要明确什么是绝对位置编码，其实就是0，1，2，3。这样的位置。这种形式的编码很难附加到embedding中。
+- 绝对位置编码(学习位置编码)。即从模型中学习到的位置。
 - 相对位置编码，即attention中提到的。**位置的psotional encoding可以被位置线性表示，反应其相对位置关系。**
 - 复杂位置编码。即不仅有位置还有方向。
-- 学习位置编码。即从模型中学习到的位置。
 
 ### 优缺点分析
 
@@ -148,3 +155,40 @@ transformer可以认为是一种设计较为复杂的一种模型。其核心是
 - 没有采用RNN/LSTM这种大热的循环网络建模，使用了全新的multi-head self-attention,具有良好的效果
 - 可以并行计算
 - 长距离依赖问题
+
+## Transformer为什么Q和K为什么不能点乘
+
+按照相似度计算时可以的，点乘是一种计算相似度的方法。transofmer中为什么要舍近求远？因为点乘是要求两个向量是一模一样的，这样会导致在相似度计算时，自己和自己是最相似的。这种方式不利于其他向量对他的作用。如果QKV使用不同的权重矩阵初始化生成，，则保证在**不同空间进行投影，增强表达能力，提高泛化能力**
+
+## 为什么在进行softmax之前需要对attention进行scaled
+
+见上文：self-attention公式中的归一化有什么作用
+
+## 为什么使用LN而不是BN
+
+对于使用场景来说，BN在MLP和CNN上使用的效果都比较好，在RNN这种动态文本模型上使用的比较差。
+
+BN在MLP中的应用。 BN是对每个特征在batch_size上求的均值和方差，果BN应用到NLP任务，相当于是在对默认了在同一个位置的单词对应的是同一种特征，
+
+layer_norm针对的是文本的长度，整条序列的文本，所以比bn好。
+
+实际上，LN可以看作是对整句话进行norm，这个在直觉上是有意义的。而BN是同一个batch下的norm，而NLP任务的特殊性，不同样本之间方差比较大，将他们强行norm到同一个空间没有什么物理上的意义。
+
+## transformer的物理解释是什么？
+
+源自一篇微软研究院的文章：[Understanding and Improving Transformer From a Multi-Particle Dynamic System Point of View](https://arxiv.org/abs/1906.02762)
+
+[博文参考](https://zhuanlan.zhihu.com/p/71747175)
+
+- input问题。句子中的每一个单词里面每一个“星体”——粒子
+- FFN部分：对应着物理中的对流——对流的背景场.F,建模粒子之间的关系
+- multi-head self-attention部分：对应着物理中的扩散/物体间的相互关系（graph laplacian）——G建模对流的背景场。
+
+也就是一个是粒子关系F，一个是对流场关系G。这个系统可以形式化为$\frac{d x}{d t}=F(x)+G(x)$
+
+而transformer作为这样的一个解释
+
+器，把G和F求解分开。先求一步G，再求一步F。物理上这个叫spliting scheme
+
+当然，还有从量子力学角度去思考的。[CNM: An Interpretable Complex-valued Network for Matching](https://arxiv.org/abs/1904.05298)
+
